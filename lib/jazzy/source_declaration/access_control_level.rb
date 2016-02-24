@@ -28,7 +28,7 @@ module Jazzy
             return acl
           end
         end
-        acl = from_explicit_declaration(doc['key.parsed_declaration'])
+        acl = from_explicit_declaration(doc['key.doc.declaration'])
         acl || AccessControlLevel.public # fallback on public ACL
       end
 

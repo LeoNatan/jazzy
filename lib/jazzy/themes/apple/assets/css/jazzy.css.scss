@@ -7,6 +7,7 @@ $doc_coverage_color: #999;
 $code_color: #777;
 $code_bg_color: #eee;
 $link_color: #0088cc;
+/*$link_color: #E9487D;*/
 $white_color: #fff;
 $light_gray_bg_color: #f2f2f2;
 $declaration_bg_color: #f9f9f9;
@@ -50,7 +51,7 @@ html, body, div, span, h1, h3, h4, p, a, code, em, img, ul, li, table, tbody, tr
 
 body {
   background-color: $light_gray_bg_color;
-  font-family: Helvetica, freesans, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
   -webkit-font-smoothing: subpixel-antialiased;
   word-wrap: break-word;
@@ -65,7 +66,7 @@ h1, h2, h3 {
   color: black;
 }
 h1 {
-  font-size: 2.5em;
+  font-size: 28px;
 }
 h2 {
   font-size: 2em;
@@ -209,7 +210,7 @@ header {
 
 .nav-group-name {
   border-bottom: $gray_border;
-  font-size: 1.1em;
+  font-size: 13px;
   font-weight: 100;
   padding: 15px 0 15px 20px;
   > a {
@@ -350,7 +351,7 @@ header {
   border-left: $gray_border;
   border-top: $gray_border;
   height: 12px;
-  left: 21px;
+  left: 40px;
   top: -7px;
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);

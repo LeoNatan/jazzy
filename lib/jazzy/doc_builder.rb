@@ -144,8 +144,8 @@ module Jazzy
     end
 
     def self.decl_for_token(token)
-      if token['key.parsed_declaration']
-        token['key.parsed_declaration']
+      if token['key.doc.declaration']
+        token['key.doc.declaration']
       elsif token['key.annotated_decl']
         token['key.annotated_decl'].gsub(/<[^>]+>/, '')
       elsif token['key.name']
