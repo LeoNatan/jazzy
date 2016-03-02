@@ -13,6 +13,8 @@ $light_gray_bg_color: #f2f2f2;
 $declaration_bg_color: #f9f9f9;
 $sidebar_bg_color: #f9f9f9;
 $declaration_title_language_color: #4b8afb;
+$declaration_title_language_color_swift: #4b8afb;
+$declaration_title_language_color_objc: #53A14F;
 
 $sidebar_width: 230px;
 $content_wrapper_width: 980px;
@@ -26,6 +28,8 @@ $code_font: 0.95em Menlo, monospace;
 
 $gray_border: 1px solid #e2e2e2;
 $declaration_language_border: 5px solid #cde9f4;
+$declaration_language_border_swift: 5px solid #cde9f4;
+$declaration_language_border_objc: 5px solid #CDE5D2;
 
 $aside_color: #aaa;
 $aside_border: 5px solid lighten($aside_color, 20%);
@@ -36,7 +40,7 @@ $aside_warning_border: 5px solid lighten($aside_warning_color, 20%);
 // Reset
 ////////////////////////////////
 
-html, body, div, span, h1, h3, h4, p, a, code, em, img, ul, li, table, tbody, tr, td {
+html, body, div, span, h1, h3, h4, p, a, code, em, img, ul, li {
   background: transparent;
   border: 0;
   margin: 0;
@@ -45,13 +49,45 @@ html, body, div, span, h1, h3, h4, p, a, code, em, img, ul, li, table, tbody, tr
   vertical-align: baseline;
 }
 
+table {
+  border-top-color: gray;
+  border-right-color: gray;
+  border-bottom-color: gray;
+  border-left-color: gray;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-top: 0;
+  margin-bottom: 16px;
+  /*display: block;*/
+  width: 100%;
+  overflow: auto;
+}
+
+table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+table th {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+
+table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+}
+
 ////////////////////////////////
 // Global
 ////////////////////////////////
 
 body {
   background-color: $light_gray_bg_color;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
   font-size: 14px;
   -webkit-font-smoothing: subpixel-antialiased;
   word-wrap: break-word;
@@ -62,34 +98,65 @@ body {
 h1, h2, h3 {
   margin-top: 0.8em;
   margin-bottom: 0.3em;
-  font-weight: 100;
   color: black;
 }
+
+.h1_class {
+  font-weight: 200;
+}
+
+.h3_class {
+  font-weight: 200;
+}
+
 h1 {
+  font-size: 2.25em;
+  border-bottom: $gray_border;
+  font-weight: 200;
+}
+
+.h1_class {
+  font-size: 28px;
+  border-bottom: none;
+}
+
+.h3_class {
   font-size: 28px;
 }
+
 h2 {
-  font-size: 2em;
+  font-size: 1.75em;
   border-bottom: $gray_border;
+  font-weight: 200;
+}
+
+h3 {
+  font-size: 1.5em;
+  font-weight: 200;
 }
 h4 {
-  font-size: 13px;
+  font-size: 1.25em;
   line-height: 1.5;
   margin-top: 21px;
+  font-weight: 300;
+  margin-bottom: 0.3em;
 }
 h5 {
   font-size: 1.1em;
+  font-weight: 500;
+  margin-bottom: 0.3em;
 }
 h6 {
-  font-size: 1.1em;
+  font-size: 1em;
   color: $code_color;
+  font-weight: 400;
 }
 .section-name {
   color: rgba(128,128,128,1);
   display: block;
-  font-family: Helvetica;
+  /*font-family: Helvetica;*/
   font-size: 22px;
-  font-weight: 100;
+  font-weight: 300;
   margin-bottom: 15px;
 }
 
@@ -172,6 +239,10 @@ header {
   }
 }
 
+.header-title {
+	/*font-size: 11px;*/
+}
+
 #breadcrumbs {
   background-color: $light_gray_bg_color;
   height: $content_top_offset - $header_height - $breadcrumb_padding_top;
@@ -210,8 +281,8 @@ header {
 
 .nav-group-name {
   border-bottom: $gray_border;
-  font-size: 13px;
-  font-weight: 100;
+  font-size: 16px;
+  font-weight: 400;
   padding: 15px 0 15px 20px;
   > a {
     color: #333;
@@ -226,7 +297,12 @@ header {
   font-size: 0.9em;
   list-style-type: none;
   a {
+    font-size: 13px;
     color: #888;
+    width: calc(100% - 20px);
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }
 
@@ -288,6 +364,11 @@ header {
 .section-name {
   margin: 0;
   margin-left: 18px;
+  margin-top: 1.3em;
+}
+
+.task-group:first-child .section-name:first-child {
+    margin-top: 0;
 }
 
 .task-group-section {
@@ -297,6 +378,10 @@ header {
 
 .task-group {
   padding-top: 0px;
+
+  ul {
+  	margin-bottom: 0;
+  }
 }
 
 .task-name-container {
@@ -314,14 +399,14 @@ header {
   padding-top: 8px;
   width: 100%;
   list-style-type: none;
-  a[name] {
+  /*a[name] {
     &:before {
       content: "";
       display: block;
       padding-top: $content_top_offset;
       margin: -$content_top_offset 0 0;
     }
-  }
+  }*/
   code {
     background-color: transparent;
     padding: 0;
@@ -379,7 +464,7 @@ header {
   }
 }
 
-.aside, .language {
+.aside, .language, .language-swift, .language-objc {
   padding: 6px 12px;
   margin: 12px 0;
   border-left: $aside_border;
@@ -402,6 +487,20 @@ header {
   border-left: $declaration_language_border;
   .aside-title {
     color: $declaration_title_language_color;
+  }
+}
+
+.language-swift {
+  border-left: $declaration_language_border_swift;
+  .aside-title {
+    color: $declaration_title_language_color_swift;
+  }
+}
+
+.language-objc {
+  border-left: $declaration_language_border_objc;
+  .aside-title {
+    color: $declaration_title_language_color_objc;
   }
 }
 

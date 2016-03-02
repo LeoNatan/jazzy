@@ -7,6 +7,8 @@ module Jazzy
     include Redcarpet::Render::SmartyPants
     include Rouge::Plugins::Redcarpet
 
+    alias :super_block_code :block_code
+
     def header(text, header_level)
       text_slug = text.gsub(/[^a-zA-Z0-9]+/, '_')
                   .downcase
@@ -25,6 +27,7 @@ module Jazzy
                             Bug
                             Complexity
                             Copyright
+                            Deprecated
                             Date
                             Experiment
                             Important
@@ -34,7 +37,6 @@ module Jazzy
                             Postcondition
                             Precondition
                             Remark
-                            Requires
                             Returns
                             See
                             SeeAlso
@@ -43,6 +45,7 @@ module Jazzy
                             Throws
                             Version
                             Warning).freeze
+                            # Requires
 
     SPECIAL_LIST_TYPE_REGEX = %r{
       \A\s* # optional leading spaces
@@ -53,6 +56,10 @@ module Jazzy
     }ix
 
     ELIDED_LI_TOKEN = '7wNVzLB0OYPL2eGlPKu8q4vITltqh0Y6DPZf659TPMAeYh49o'.freeze
+
+    def block_code(code, language)
+      render_aside_language(language, super_block_code(code, language))
+    end
 
     def list_item(text, _list_type)
       if text =~ SPECIAL_LIST_TYPE_REGEX
@@ -68,6 +75,21 @@ module Jazzy
     def render_aside(type, text)
       <<-HTML
 <div class="aside aside-#{type.underscore.tr('_', '-')}">
+    <p class="aside-title">#{type.underscore.humanize}</p>
+    #{text}
+</div>
+      HTML
+    end
+
+    def render_aside_language(type, text)
+      if type.eql? 'swift'
+        cls = 'language-swift'
+      else
+        type = 'objective c'
+        cls = 'language-objc'
+      end
+      <<-HTML
+<div class="#{cls}">
     <p class="aside-title">#{type.underscore.humanize}</p>
     #{text}
 </div>

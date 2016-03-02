@@ -34,10 +34,10 @@ module Jazzy
                    .map do |child|
           { name: child.name, url: child.url }
         end
-        {
-          section: doc.name,
-          children: children,
-        }
+    		{
+    			section: doc.name,
+    			children: children,
+    		}
       end
     end
 
@@ -309,7 +309,11 @@ module Jazzy
       doc[:declaration] = doc_model.declaration
       doc[:overview] = Jazzy.markdown.render(doc_model.overview)
       doc[:structure] = source_module.doc_structure
-      doc[:tasks] = render_tasks(source_module, doc_model.children)
+      children = doc_model.children
+      if doc_model.type.name != 'Class'
+        children = children.sort_by { |c| [c.nav_order, c.name] }
+      end
+      doc[:tasks] = render_tasks(source_module, children)
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
       doc[:github_url] = source_module.github_url
