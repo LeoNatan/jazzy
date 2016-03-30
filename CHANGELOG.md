@@ -8,8 +8,22 @@
   a complete list of changed options. As always, you can get a list of all
   options with `jazzy --help config`.  
   [Paul Cantrell](https://github.com/pcantrell)
+* Jazzy's undocumented.txt has been replaced with undocumented.json. This new
+  format includes contextual information that one might use to lint
+  documentation in an automated fashion.  
+  [Jeff Verkoeyen](https://github.com/jverkoey)
+
+##### Enhancements
+
+* Add `--skip-documentation` flag. Skips site generation phase. `undocumented.json`
+  is still generated.  
+  [Jeff Verkoeyen](https://github.com/jverkoey)
 
 ##### Bug Fixes
+
+* Add support for Objective-C module imports.  
+  [JP Simard](https://github.com/jpsim)
+  [#452](https://github.com/realm/jazzy/issues/452)
 
 * Workaround for an apparent SourceKit bug which sometimes caused extensions
   to be merged into the wrong type.  
