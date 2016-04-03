@@ -215,7 +215,7 @@ module Jazzy
 
     def self.make_doc_info(doc, declaration)
       return unless should_document?(doc)
-      unless doc['key.doc.full_as_xml']
+      if doc['key.doc.comment'].nil?
         return process_undocumented_token(doc, declaration)
       end
 
